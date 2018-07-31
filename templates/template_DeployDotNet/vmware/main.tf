@@ -46,8 +46,3 @@ module "deployVM_Win2012R2" {
   	   dns_servers = "${var.dns_servers}"
 }
 
-module "InstallDotNet" {
-  source = "git::https://github.com/haythamelkhoja/poc_emaratech//templates/template_DeployDotNet/module/InstallDotNet"
-  host = "${module.deployVM_Win2012R2.address}"
-  admin_password = "${var.admin_password}"
-}
