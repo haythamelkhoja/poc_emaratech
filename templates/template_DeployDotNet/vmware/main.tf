@@ -9,7 +9,7 @@ provider "vsphere" {
 
 # Data resource
 module "dataResource" {
-  source = "git::https://8120a5e78e986d1b1c3aaa5dea3258e58323bb79@github.ibm.com/OpenContent/poc_emaratech//templates/template_DeployDotNet/module/dataResource"
+  source = "../module/dataResource"
   vsphere_datacenter  = "${var.vsphere_datacenter}"
   vsphere_datastore = "${var.vsphere_datastore}"
   vsphere_cluster = "${var.vsphere_cluster}"
@@ -19,7 +19,7 @@ module "dataResource" {
 
 # Deploy New Node VMs
 module "deployVM_Win2012R2" {
-  source = "git::https://8120a5e78e986d1b1c3aaa5dea3258e58323bb79@github.ibm.com/OpenContent/poc_emaratech//templates/template_DeployDotNet/module/deployWinVM"
+  source = "../module/deployWinVM"
    #######
        folder_path = "${var.folderPath}"
    #######
@@ -47,7 +47,7 @@ module "deployVM_Win2012R2" {
 }
 
 module "InstallDotNet" {
-  source = "git::https://8120a5e78e986d1b1c3aaa5dea3258e58323bb79@github.ibm.com/OpenContent/poc_emaratech//templates/template_DeployDotNet/module/InstallDotNet"
+  source = "..//module/InstallDotNet"
   host = "${module.deployVM_Win2012R2.address}"
   admin_password = "${var.admin_password}"
 }
