@@ -47,7 +47,7 @@ module "deployVM_Win2012R2" {
 }
 
 module "InstallDotNet" {
-  source = "..//module/InstallDotNet"
+  source = "../module/InstallDotNet"
   host = "${module.deployVM_Win2012R2.address}"
   admin_password = "${var.admin_password}"
 }
