@@ -1,0 +1,60 @@
+{
+    "name": "Install IBM ODM on a single virtual machine on WebSphere - VMWare",
+    "description": "Install ODM on a virtual machine with a WebSphere Server. This install will only work in a basic fashion on a single VM.",
+    "version": "1.0",
+    "imageUrl": "",
+    "image": "",
+    "type": "chefcontent",
+    "status": "active",
+    "manifest": {
+      "template_type": "Terraform",
+      "template_format": "HCL",
+      "template_provider": "VMware vSphere",
+      "template": {
+        "templateData": "",
+        "templateVariables": "",
+        "templateOutput": ""
+      },
+      "template_source": {
+        "githubRepoUrl": "",
+        "githubAccessToken": "",
+        "relativePathToTemplateFolder": "vmware/terraform",
+        "templateFileName": "ibm_odm_was.tf"
+      }
+    },
+    "metadata": {
+      "displayName": "IBM ODM on a single virtual machine with WebSphere",
+      "providerDisplayName": "VMware vSphere",
+      "longDescription": "Install ODM on a virtual machine with a WebSphere Server. This install will only work in a basic fashion on a single VM.",
+      "bullets": [{
+    "title": "Clouds",
+    "description": " VMware<br>"},
+{
+    "title": "Operating Systems Supported",
+    "description": "Red Hat Enterprise Linux 7<br>Red Hat Enterprise Linux 6<br>"},
+{
+    "title": "Topology",
+    "description": "1 virtual machine:<br>  WebSphere Single Server and ODM - single node<br>"},
+{
+    "title": "Software Deployed",
+    "description": "IBM WebSphere Application Server WebSphere, IBM ODM<br>"},
+{
+    "title": "Default Virtual Machine Settings",
+    "description": " vCPU 2, Memory (GB) 4, Disk (GB) 100<br>"},
+{
+    "title": "Usage and Special Notes",
+    "description": "1. The user is responsible for obtaining appropriate software licenses and downloads prior to template deployment.<br>2. Modify the libertynode_was_liberty_edition variable in CAM Variables to change the installation type to base, core or nd.<br>3. IBM Knowledge Center for WAS Liberty - <a href=\"https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/as_ditamaps/was900_welcome_liberty.html\" target=\"_blank\">https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/as_ditamaps/was900_welcome_liberty.html</a><br>4. IBM Support Portal - <a href=\"https://www.ibm.com/support/home/\" target=\"_blank\">https://www.ibm.com/support/home/</a><br>"}
+],
+      "featuredImageUrl": "",
+      "imageUrl": "",
+      "mediumImageUrl": "",
+      "smallImageUrl": "",
+      "documentationUrl": "",
+      "termsUrl": "",
+      "media": [
+      ]
+    },
+    "toolchain": {
+      "git": "https://github.com/ibmcam/cam-toolchain"
+    }
+}

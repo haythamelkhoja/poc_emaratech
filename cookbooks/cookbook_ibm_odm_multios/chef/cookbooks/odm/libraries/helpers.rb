@@ -43,12 +43,11 @@ def define_im_repo_password
   im_repo_password
 end
 
-def generate_storage_file
+def generate_storage_file(user, group, im_install_dir)
   im_repo = define_im_repo
   require 'securerandom'
-  im_install_dir = '/opt/IBM/InstallationManager'
-  user = define_user
-  group = define_group
+  user = user
+  group = group
   im_repo_password = define_im_repo_password
   if ::File.exist?('/tmp/master_password_file.txt')
     Chef::Log.info("/tmp/master_password_file.txt exists. It will not be modified")
@@ -62,6 +61,7 @@ def generate_storage_file
     Chef::Log.info("/tmp/credential.store exists. It will not be modified")
   else
     cmd = "#{im_install_dir}/eclipse/tools/imutilsc saveCredential -url #{im_repo}/repository.config -userName #{node['ibm']['im_repo_user']} -userPassword \'#{im_repo_password}\' -secureStorageFile /tmp/credential.store -masterPasswordFile /tmp/master_password_file.txt -preferences com.ibm.cic.common.core.preferences.ssl.nonsecureMode=true || true"
+    Chef::Log.info("Running #{cmd}")
     cmd_out = run_shell_cmd(cmd, user)
     cmd_out.stderr.empty? && (cmd_out.stdout =~ /^Successfully saved the credential to the secure storage file./)
   end
@@ -108,50 +108,5 @@ def self_signed_certificate_name
   etc_hosts.close
   cert_name
 end
-
-def define_user
-  case node['was_liberty']['install_mode']
-  when 'admin'
-    user = if node['was_liberty']['install_user'].nil?
-             'root'
-           else
-             node['was_liberty']['install_user']
-           end
-    user
-  when 'nonAdmin', 'group'
-    user = if node['was_liberty']['install_user'].nil?
-             Chef::Log.fatal "User Name not provided! Please provide the user that should be used to install your product"
-             raise "User Name not provided! Please provide the user that should be used to install your product"
-           else
-             unless im_user_exists_unix?(node['was_liberty']['install_user'])
-               Chef::Log.fatal "User Name provided #{new_resource.user}, does not exist"
-               raise "User Verification 1: User Name provided #{node['was_liberty']['install_user']}, does not exist"
-             end
-             node['was_liberty']['install_user']
-           end
-    user
-  end
-end
-
-def define_group
-  case node['was_liberty']['install_mode']
-  when 'admin'
-    group = if node['was_liberty']['install_grp'].nil?
-              node['root_group']
-            else
-              node['was_liberty']['install_grp']
-            end
-    group
-  when 'nonAdmin', 'group'
-    group = if node['was_liberty']['install_grp'].nil?
-              Chef::Log.fatal "Group not provided! Please provide the group that should be used to install your product"
-              raise "Group not provided! Please provide the group that should be used to install your product"
-            else
-              node['was_liberty']['install_grp']
-            end
-    group
-  end
-end
-
 end
 Chef::Recipe.send(:include, Helpers)
